@@ -1,0 +1,7 @@
+base   rssextend
+author Mizunashi Mana
+email  mizunashi_mana@mma.club.uec.ac.jp
+date   2015-05-20
+name   RSS Extend Plugin
+desc   extends default rss syntax on Dokuwiki
+url    https://github.com/mizunashi-mana/plugin-rssextend

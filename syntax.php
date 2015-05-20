@@ -88,7 +88,7 @@ class syntax_plugin_rssextend extends DokuWiki_Syntax_Plugin {
         $link = preg_replace(array('/^\{\{rss>/', '/\}\}$/'), '', $match);
         list($link, $params) = explode(' ', $link, 2);
 
-        return array($link, _parse_params($params));
+        return array($link, $this->_parse_params($params));
     }
 
     /**
@@ -140,19 +140,19 @@ class syntax_plugin_rssextend extends DokuWiki_Syntax_Plugin {
                 if($lnkurl) {
                     // title is escaped by SimplePie, we unescape here because it
                     // is escaped again in externallink() FS#1705
-                    $this->externallink(
+                    $renderer->externallink(
                             $item->get_permalink(),
                             html_entity_decode($item->get_title(), ENT_QUOTES, 'UTF-8')
                             );
                 } else {
-                    $this->doc .= ' '.$item->get_title();
+                    $renderer->doc .= ' '.$item->get_title();
                 }
                 if($params['author']) {
                     $author = $item->get_author(0);
                     if($author) {
                         $name = $author->get_name();
                         if(!$name) $name = $author->get_email();
-                        if($name) $this->doc .= ' '.$lang['by'].' '.$name;
+                        if($name) $renderer->doc .= ' '.$lang['by'].' '.$name;
                     }
                 }
                 if($params['date']) {
@@ -173,12 +173,13 @@ class syntax_plugin_rssextend extends DokuWiki_Syntax_Plugin {
             $renderer->doc .= '<li><div class="li">';
             $renderer->doc .= '<em>'.$lang['rssfailed'].'</em>';
             $renderer->externallink($url);
-            if($conf['allowdebug']) {
+            if($conf['allowdebug'] || true) {
                 $renderer->doc .= '<!--'.hsc($feed->error).'-->';
             }
             $renderer->doc .= '</div></li>';
         }
-    $renderer->doc .= '</ul>';
+        $renderer->doc .= '</ul>';
 
-    return true;
+        return true;
+    }
 }

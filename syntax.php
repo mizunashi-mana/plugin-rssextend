@@ -103,7 +103,7 @@ class syntax_plugin_rssextend extends DokuWiki_Syntax_Plugin {
         global $lang;
         global $conf;
 
-        list($link, $parameter) = $data;
+        list($url, $params) = $data;
 
         require_once(realpath(dirname(__FILE__) . '/FeedParser.php'));
 

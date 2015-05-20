@@ -85,7 +85,7 @@ class syntax_plugin_rssextend extends DokuWiki_Syntax_Plugin {
     public function handle($match, $state, $pos, Doku_Handler $handler) {
         global $ID;
 
-        $link = preg_replace(array('/^\{\{rss>/', '/\}\}$/'), '', $match);
+        $link = preg_replace(array('/^\{\{rssext>/', '/\}\}$/'), '', $match);
         list($link, $params) = explode(' ', $link, 2);
 
         return array($link, $this->_parse_params($params));
@@ -109,6 +109,7 @@ class syntax_plugin_rssextend extends DokuWiki_Syntax_Plugin {
 
         $feed = new FeedParser();
         $feed->set_feed_url($url);
+
         //disable warning while fetching
         if(!defined('DOKU_E_LEVEL')) {
             $elvl = error_reporting(E_ERROR);

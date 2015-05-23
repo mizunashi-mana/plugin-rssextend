@@ -107,12 +107,12 @@ class syntax_plugin_rssextend extends DokuWiki_Syntax_Plugin {
     public function render($mode, Doku_Renderer $renderer, $data) {
         global $lang;
         global $conf;
+        global $rssextend_global_setting;
 
         list($url, $params) = $data;
 
         require_once(realpath(dirname(__FILE__) . '/FeedParser.php'));
 
-        global $rssextend_global_setting;
         $feed = new FeedParser();
         $rssextend_global_setting['use_cookie'] = $params['use_cookie'];
         $feed->set_feed_url($url);

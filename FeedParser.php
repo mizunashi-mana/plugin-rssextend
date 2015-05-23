@@ -58,6 +58,7 @@ class FeedParser_File extends SimplePie_File {
     function __construct($url, $timeout=10, $redirects=5,
             $headers=null, $useragent=null, $force_fsockopen=false) {
         global $rssextend_global_setting;
+        echo "<pre>".var_export($rssextend_global_setting,true)."</pre>";
         $use_cookie = $rssextend_global_setting['use_cookie'];
 
         $this->http    = new DokuHTTPClient();

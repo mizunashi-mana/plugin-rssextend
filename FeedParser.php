@@ -8,6 +8,13 @@
 if(!defined('DOKU_INC')) die('meh.');
 require_once(DOKU_INC . 'inc/SimplePie.php');
 
+// They will be removed.
+/*
+    SimplePie do not support cookie.
+    So, when we do not use those, we must develop a substitute or use.
+*/
+$rssextend_global_setting = array();
+
 /**
  * We override some methods of the original SimplePie class here
  */
@@ -50,7 +57,11 @@ class FeedParser_File extends SimplePie_File {
      */
     function __construct($url, $timeout=10, $redirects=5,
             $headers=null, $useragent=null, $force_fsockopen=false) {
+        global $rssextend_global_setting;
+        $use_cookie = $rssextend_global_setting['use_cookie'];
+
         $this->http    = new DokuHTTPClient();
+        if(!is_null($use_cookie)) $this->http->cookies = $use_cookie;
         $this->success = $this->http->sendRequest($url);
         $this->headers = $this->http->resp_headers;
         $this->body    = $this->http->resp_body;

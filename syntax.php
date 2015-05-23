@@ -69,6 +69,11 @@ class syntax_plugin_rssextend extends DokuWiki_Syntax_Plugin {
         }
 
         // extend syntax
+        if((preg_match('/\b(mywiki)/',$params))){
+            $result['use_cookie'] = $_COOKIE;
+        } else {
+            $result['use_cookie'] = null;
+        }
 
         return $result;
     }
@@ -108,6 +113,7 @@ class syntax_plugin_rssextend extends DokuWiki_Syntax_Plugin {
         require_once(realpath(dirname(__FILE__) . '/FeedParser.php'));
 
         $feed = new FeedParser();
+        $rssextend_global_setting['use_cookie'] = $params['use_cookie'];
         $feed->set_feed_url($url);
 
         //disable warning while fetching
